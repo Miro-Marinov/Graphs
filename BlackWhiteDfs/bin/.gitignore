@@ -3,3 +3,9 @@
 /DiGraph.class
 /Graph.class
 /graph.txt
+/WeightedGraph.class
+/WeightedGraph$Edge.class
+/MSTprims.class
+/Edge.class
+/MSTprimsLazy.class
+/EdgeCmp.class
