@@ -1,29 +1,32 @@
-public class UnweigtedEdge {
+public class WeightedEdge {
   private int from;
   private int to;
   private double weight;
 
-  public UnweigtedEdge(int from, int to, double weight) {
+  public WeightedEdge(int from, int to, double weight) {
     this.from = from;
     this.to = to;
     this.weight = weight;
   }
 
-  public int getOne() {
+  public int from() {
     return from;
   }
 
+  public Integer to() {
+    return to;
+  }
+
+  public double getWeight() {
+    return weight;
+  }
+  
   public Integer getOther(int v) {
     if (v == from)
       return to;
     else if (v == to)
       return from;
-    else
-      return null;
-  }
-
-  public double getWeight() {
-    return weight;
+    return null;
   }
 
   public String toString() {
@@ -32,6 +35,6 @@ public class UnweigtedEdge {
 
   @Override
   public boolean equals(Object e) {
-    return this.getWeight() == ((UnweigtedEdge) e).getWeight();
+    return this.getWeight() == ((WeightedEdge) e).getWeight();
   }
 }

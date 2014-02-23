@@ -5,7 +5,7 @@ public class Bridge {
   private int[] erliestVisitedReachable; // erliestVisitedReachable[cur] = lowest preorder of any
                                          // vertex connected (reachable from) to cur
 
-  public Bridge(UndirectedGraph G) {
+  public Bridge(UndirectedGraphList G) {
     erliestVisitedReachable = new int[G.V()];
     dfsVisitedOrder = new int[G.V()];
     for (int v = 0; v < G.V(); v++) {
@@ -23,7 +23,7 @@ public class Bridge {
     return bridges + 1;
   }
 
-  private void dfs(UndirectedGraph G, int cur, int prev) {
+  private void dfs(UndirectedGraphList G, int cur, int prev) {
     System.out.print("Visiting " + cur);
 
     dfsVisitedOrder[cur] = cnt++;
@@ -65,7 +65,7 @@ public class Bridge {
 
   // test client
   public static void main(String[] args) {
-    UndirectedGraph G = new UndirectedGraph();
+    UndirectedGraphList G = new UndirectedGraphList();
     G.toString();
 
     Bridge bridge = new Bridge(G);

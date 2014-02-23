@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.io.*;
 
-public class UndirectedGraph implements Graph {
+public class UndirectedGraphList implements UnweightedGraph {
   private int V;
   private int E;
   private ArrayList<LinkedList<Integer>> adj;
 
 
-  public UndirectedGraph(int V) {
+  public UndirectedGraphList(int V) {
     if (V < 0)
       throw new IllegalArgumentException("Number of vertices must be nonnegative");
     this.V = V;
@@ -20,7 +20,7 @@ public class UndirectedGraph implements Graph {
   }
 
 
-  public UndirectedGraph() {
+  public UndirectedGraphList() {
     if (V < 0)
       throw new IllegalArgumentException("Number of vertices must be nonnegative");
     this.E = 0;
@@ -106,7 +106,7 @@ public class UndirectedGraph implements Graph {
    * Unit tests the <tt>Graph</tt> data type.
    */
   public static void main(String[] args) {
-    UndirectedGraph G = new UndirectedGraph();
+    UndirectedGraphList G = new UndirectedGraphList();
     G.toString();
   }
 

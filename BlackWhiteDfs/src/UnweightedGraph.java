@@ -1,4 +1,4 @@
-public interface Graph {
+public interface UnweightedGraph {
   public int V();
 
   public int E();
