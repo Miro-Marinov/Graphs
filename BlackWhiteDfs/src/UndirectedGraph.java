@@ -2,31 +2,43 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.io.*;
 
-public class WeightedGraph {
+public class UndirectedGraph implements Graph {
   private int V;
   private int E;
-  private ArrayList<LinkedList<UnweigtedEdge>> adj;
+  private ArrayList<LinkedList<Integer>> adj;
 
-  public WeightedGraph() {
+
+  public UndirectedGraph(int V) {
+    if (V < 0)
+      throw new IllegalArgumentException("Number of vertices must be nonnegative");
+    this.V = V;
+    this.E = 0;
+    adj = new ArrayList<LinkedList<Integer>>(V);
+    for (int v = 0; v < V; v++) {
+      adj.add(new LinkedList<Integer>());
+    }
+  }
+
+
+  public UndirectedGraph() {
     if (V < 0)
       throw new IllegalArgumentException("Number of vertices must be nonnegative");
     this.E = 0;
 
-    String fileName = "weightedGraph.txt";
+    String fileName = "graph.txt";
     String line;
     try {
 
       FileReader freader = new FileReader(fileName);
       BufferedReader breader = new BufferedReader(freader);
       this.V = Integer.parseInt(breader.readLine());
-      adj = new ArrayList<LinkedList<UnweigtedEdge>>();
+      adj = new ArrayList<LinkedList<Integer>>();
       for (int v = 0; v < V; v++) {
-        adj.add(new LinkedList<UnweigtedEdge>());
+        adj.add(new LinkedList<Integer>());
       }
       while ((line = breader.readLine()) != null) {
         String[] edge = line.split(" ");
-        addEdge(new UnweigtedEdge(Integer.parseInt(edge[0]), Integer.parseInt(edge[1]),
-            Double.parseDouble(edge[2])));
+        addEdge(Integer.parseInt(edge[0]), Integer.parseInt(edge[1]));
       }
       breader.close();
     } catch (FileNotFoundException ex) {
@@ -40,7 +52,11 @@ public class WeightedGraph {
   }
 
 
-
+  /**
+   * Returns the number of vertices in the graph.
+   * 
+   * @return the number of vertices in the graph
+   */
   public int V() {
     return V;
   }
@@ -50,16 +66,19 @@ public class WeightedGraph {
   }
 
 
-  public void addEdge(UnweigtedEdge edge) {
+  public void addEdge(int v, int w) {
+    if (v < 0 || v >= V)
+      throw new IndexOutOfBoundsException();
+    if (w < 0 || w >= V)
+      throw new IndexOutOfBoundsException();
     E++;
-    System.out.println("Addidng edge beween: " + edge.getOne() + " and "
-        + edge.getOther(edge.getOne()) + " with weight: " + edge.getWeight());
-    adj.get(edge.getOne()).add(edge);
-    adj.get(edge.getOther(edge.getOne())).add(edge);
+    System.out.println("Addidng edge beween: " + v + " and " + w);
+    adj.get(w).add(v);
+    adj.get(v).add(w);
   }
 
 
-  public Iterable<UnweigtedEdge> adj(int v) {
+  public Iterable<Integer> adj(int v) {
     if (v < 0 || v >= V)
       throw new IndexOutOfBoundsException();
     return adj.get(v);
@@ -73,8 +92,8 @@ public class WeightedGraph {
     s.append(V + " vertices, " + E + " edges " + NEWLINE);
     for (int v = 0; v < V; v++) {
       s.append(v + ": ");
-      for (UnweigtedEdge e : adj.get(v)) {
-        s.append(e.toString() + " ");
+      for (int w : adj.get(v)) {
+        s.append(w + " ");
       }
       s.append(NEWLINE);
     }
@@ -84,10 +103,10 @@ public class WeightedGraph {
 
 
   /**
-   * Unit tests the <tt>WeightedGraph</tt> data type.
+   * Unit tests the <tt>Graph</tt> data type.
    */
   public static void main(String[] args) {
-    WeightedGraph G = new WeightedGraph();
+    UndirectedGraph G = new UndirectedGraph();
     G.toString();
   }
 

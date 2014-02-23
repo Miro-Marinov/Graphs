@@ -5,22 +5,23 @@ import java.util.Queue;
 
 public class MSTprimsLazy {
 
-  PriorityQueue<Edge> pq = new PriorityQueue<Edge>(11, new EdgeCmp());
-  Queue<Edge> mstq = new LinkedList<Edge>();
+  PriorityQueue<UnweigtedEdge> pq = new PriorityQueue<UnweigtedEdge>(11, new EdgeCmp());
+  Queue<UnweigtedEdge> mstq = new LinkedList<UnweigtedEdge>();
   HashSet<Integer> used = new HashSet<Integer>();
 
   double totalweight = 0;
 
   public MSTprimsLazy(WeightedGraph G) {
-    mstPrims(G, 1);
+    mstPrims(G, 0);
   }
 
   private void mstPrims(WeightedGraph G, int v) {
     scan(G, v);
 
     while (!pq.isEmpty()) {
-      Edge e = pq.remove();
-      if(used.contains(e.getOne()) && used.contains(e.getOther(e.getOne()))) continue;
+      UnweigtedEdge e = pq.remove();
+      if (used.contains(e.getOne()) && used.contains(e.getOther(e.getOne())))
+        continue;
       totalweight += e.getWeight();
       mstq.add(e);
 
@@ -30,7 +31,7 @@ public class MSTprimsLazy {
         scan(G, e.getOther(e.getOne()));
     }
 
-    for (Edge e : mstq) {
+    for (UnweigtedEdge e : mstq) {
       System.out.println(e.toString());
     }
   }
@@ -39,7 +40,7 @@ public class MSTprimsLazy {
   private void scan(WeightedGraph G, int v) {
     assert !used.contains(v);
     used.add(v);
-    for (Edge e : G.adj(v))
+    for (UnweigtedEdge e : G.adj(v))
       if (!used.contains(e.getOther(v)))
         pq.add(e);
   }
