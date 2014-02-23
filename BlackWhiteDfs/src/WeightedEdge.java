@@ -30,7 +30,7 @@ public class WeightedEdge {
   }
 
   public String toString() {
-    return String.format("%d-%d %.1f", from, to, weight);
+    return String.format("%d-%d %.2f", from, to, weight);
   }
 
   @Override

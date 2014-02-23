@@ -7,12 +7,11 @@ public class WeightedDirectedGraph implements WeightedGraph{
   private int E;
   private ArrayList<LinkedList<WeightedEdge>> adj;
 
-  public WeightedDirectedGraph() {
+  public WeightedDirectedGraph(String fileName) {
     if (V < 0)
       throw new IllegalArgumentException("Number of vertices must be nonnegative");
     this.E = 0;
 
-    String fileName = "weightedGraph.txt";
     String line;
     try {
 
@@ -55,7 +54,6 @@ public class WeightedDirectedGraph implements WeightedGraph{
     System.out.println("Addidng edge beween: " + edge.from() + " and "
         + edge.getOther(edge.from()) + " with weight: " + edge.getWeight());
     adj.get(edge.from()).add(edge);
-    adj.get(edge.getOther(edge.from()));
   }
 
 
@@ -87,7 +85,7 @@ public class WeightedDirectedGraph implements WeightedGraph{
    * Unit tests the <tt>WeightedGraph</tt> data type.
    */
   public static void main(String[] args) {
-    WeightedDirectedGraph G = new WeightedDirectedGraph();
+    WeightedDirectedGraph G = new WeightedDirectedGraph("weightedDirectedGraph.txt");
     G.toString();
   }
 
