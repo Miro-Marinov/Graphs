@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.io.*;
 
@@ -6,7 +7,7 @@ public class WeightedDirectedGraph implements WeightedGraph{
   private int V;
   private int E;
   private ArrayList<LinkedList<WeightedEdge>> adj;
-
+  private HashSet<WeightedEdge> edges = new HashSet<WeightedEdge>();
   public WeightedDirectedGraph(String fileName) {
     if (V < 0)
       throw new IllegalArgumentException("Number of vertices must be nonnegative");
@@ -48,12 +49,16 @@ public class WeightedDirectedGraph implements WeightedGraph{
     return E;
   }
 
-
+  public Iterable<WeightedEdge> getEdges(){
+    return edges;
+  }
+  
   public void addEdge(WeightedEdge edge) {
     E++;
     System.out.println("Addidng edge beween: " + edge.from() + " and "
         + edge.getOther(edge.from()) + " with weight: " + edge.getWeight());
     adj.get(edge.from()).add(edge);
+    edges.add(edge);
   }
 
 

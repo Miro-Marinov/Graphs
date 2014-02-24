@@ -9,7 +9,6 @@ public class Dijkstra {
   HashSet<Integer> visited = new HashSet<Integer>();
   Queue<WeightedEdge> qTree = new LinkedList<WeightedEdge>();
   Hashtable<Integer, Double> distTo = new Hashtable<Integer, Double>();
-  Hashtable<Integer, WeightedEdge> edgeTo = new Hashtable<Integer, WeightedEdge>();
 
   public Dijkstra(WeightedGraph G, Integer source) {
 	
@@ -29,7 +28,6 @@ public class Dijkstra {
     		  || distTo.get(e.to()) > distTo.get(e.from()) + e.getWeight()) {
         
     	distTo.put(e.to(), distTo.get(e.from()) + e.getWeight());
-        edgeTo.put(e.to(), e);
 
       }
     }
